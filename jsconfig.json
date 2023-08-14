@@ -1,0 +1,16 @@
+{
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "module": "Node16",
+        "baseUrl": "./",
+        "paths": {
+            "#Config/*": ["./src/config/*"],
+            "#Controllers/*": ["./src/controllers/*"],
+            "#RoutesV1/*": ["./src/v1/routes/*"],
+            "#Schemas/*": ["./src/schemas/*"],
+            "#Services/*":["./src/services/*"],
+            "#Database/*":["./src/database/*"],
+            "#DTO/*":["./src/dto/*"]
+        }
+    }
+}
