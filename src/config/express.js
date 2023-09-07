@@ -1,9 +1,11 @@
 import express from 'express';
+import cors from 'cors';
 import contactRouterV1 from '#RoutesV1/contact.routes.js';
 import { swaggerDocs } from '../v1/swagger.js';
 const expressApp = express();
-
+expressApp.disable('x-powered-by');
 expressApp.use(express.json());
+expressApp.use(cors());
 expressApp.use('/api/v1/contacts', contactRouterV1);
 swaggerDocs(expressApp);
 expressApp.use((_, res) => {
