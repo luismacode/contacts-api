@@ -1,5 +1,8 @@
 import cors from 'cors';
-const ACCEPTED_ORIGINS = [`http://localhost:${process.env.PORT}`];
+const ACCEPTED_ORIGINS = [
+    `http://localhost:${process.env.PORT}`,
+    `${process.env.DOMAIN_NAME}`
+];
 const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =>
     cors({
         origin: (origin, callback) => {
