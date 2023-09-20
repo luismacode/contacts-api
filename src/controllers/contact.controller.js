@@ -2,44 +2,41 @@ import {
     getAllContacts,
     getContactById,
     createContact,
-    updateContact
+    updateContact,
+    deleteContact
 } from '#Services/contact.services.js';
 
 export const contactsController = async (_, res) => {
     const contacts = await getAllContacts();
-    res.send({ status: 'OK', data: contacts });
+    return res.json({ data: contacts });
 };
 
 export const contactByIdController = async (req, res) => {
-    const contact = await getContactById(req.params.contactId);
-    res.send({ status: 'OK', data: contact });
+    const { contactId } = req.params;
+    const contact = await getContactById({ contactId });
+    return res.json({ data: contact });
 };
 
 export const contactCreateController = async (req, res) => {
-    const { name, email, phone, role, isAvailable } = req.body;
-    const data = {
-        name,
-        email,
-        phone,
-        role,
-        isAvailable
-    };
-    const createdContact = await createContact(data);
-    return res.status(201).send({ status: 'OK', data: createdContact });
+    const entry = req.body;
+    const createdContact = await createContact({ entry });
+    return res
+        .status(201)
+        .json({ message: 'contact was created', data: createdContact });
 };
 
 export const contactUpdateController = async (req, res) => {
-    const existingContactById = await getContactById(req.params.contactId);
-    if (!existingContactById)
-        res.send({ code: 401, errors: ['Contact not exist'] });
-    await updateContact(req.body, existingContactById);
-    res.send(`contact was updated`);
+    const { contactId } = req.params;
+    const contact = await updateContact({ contactId, entry: req.body });
+    if (!contact.isUpdated)
+        return res.status(401).json({ errors: ['Contact not exist'] });
+    return res.json({ message: 'contact was updated', data: contact.data });
 };
 
 export const contactDeleteController = async (req, res) => {
-    const existingContactById = await getContactById(req.params.contactId);
-    if (!existingContactById)
-        res.send({ code: 401, errors: ['Contact not exist'] });
-    await existingContactById.deleteOne();
-    res.send(`contact was deleted`);
+    const { contactId } = req.params;
+    const contact = await deleteContact({ contactId });
+    if (!contact.isDeleted)
+        return res.status(401).json({ errors: ['Contact not exist'] });
+    return res.json({ message: 'contact was deleted' });
 };

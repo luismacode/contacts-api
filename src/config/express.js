@@ -1,18 +1,14 @@
 import express from 'express';
-import cors from 'cors';
 import contactRouterV1 from '#RoutesV1/contact.routes.js';
-import { swaggerDocs } from '../v1/swagger.js';
+import swaggerDocs from '#Docs/swagger.js';
+import corsMiddleware from '#Middlewares/cors.js';
+import notFound from '#Middlewares/not-found.js';
 const expressApp = express();
 expressApp.disable('x-powered-by');
 expressApp.use(express.json());
-expressApp.use(cors());
+expressApp.use(corsMiddleware());
 expressApp.use('/api/v1/contacts', contactRouterV1);
 swaggerDocs(expressApp);
-expressApp.use((_, res) => {
-    res.status(404).send({
-        status: 'failed',
-        message: "Sorry, I didn't find what you were looking for."
-    });
-});
+expressApp.use(notFound);
 
 export default expressApp;

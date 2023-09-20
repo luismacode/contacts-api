@@ -241,6 +241,8 @@ const options = {
 };
 
 const swaggerSpec = swaggerJSdoc(options);
-export const swaggerDocs = app => {
+const swaggerDocs = app => {
     app.use('/api/v1/docs', serve, setup(swaggerSpec));
 };
+
+export default swaggerDocs;

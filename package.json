@@ -44,6 +44,8 @@
         "#Schemas/*": "./src/schemas/*",
         "#Services/*": "./src/services/*",
         "#Database/*": "./src/database/*",
-        "#DTO/*": "./src/dto/*"
+        "#DTO/*": "./src/dto/*",
+        "#Middlewares/*": "./src/middlewares/*",
+        "#Docs/*": "./src/v1/docs/*"
     }
 }

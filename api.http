@@ -1,0 +1,38 @@
+### get contacts
+GET http://localhost:4200/api/v1/contacts 
+
+
+### get by id
+GET http://localhost:4200/api/v1/contacts/bf2bd235-1217-421f-9f83-152530ea0042
+
+### create contact
+
+POST http://localhost:4200/api/v1/contacts/ 
+Content-Type: application/json
+
+{
+    "name": "Dani ruggby",
+    "email": "dan.ru@gmail.com",
+    "phone": "+51 123 247 203",
+    "role": "customer",
+    "isAvailable": true
+}
+
+### update contact
+PATCH http://localhost:4200/api/v1/contacts/68441a28-936d-4f13-9d79-32f459820656
+Content-Type: application/json
+
+{
+    "name":"Michael Jackson",
+    "email":"mic.jack@gmail.com",
+    "phone":"+51 356 789 204",
+    "role":"sponsor",
+    "isAvailable":false
+}
+
+### delete contact
+DELETE http://localhost:4200/api/v1/contacts/68441a28-936d-4f13-9d79-32f459820656
+
+
+### not found
+GET http://localhost:4200/api/v1/
