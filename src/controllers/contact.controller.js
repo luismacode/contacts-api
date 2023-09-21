@@ -14,6 +14,8 @@ export const contactsController = async (_, res) => {
 export const contactByIdController = async (req, res) => {
     const { contactId } = req.params;
     const contact = await getContactById({ contactId });
+    if (!contact)
+        return res.status(404).json({ errors: ['Contact not exist'] });
     return res.json({ data: contact });
 };
 
@@ -29,7 +31,7 @@ export const contactUpdateController = async (req, res) => {
     const { contactId } = req.params;
     const contact = await updateContact({ contactId, entry: req.body });
     if (!contact.isUpdated)
-        return res.status(401).json({ errors: ['Contact not exist'] });
+        return res.status(404).json({ errors: ['Contact not exist'] });
     return res.json({ message: 'contact was updated', data: contact.data });
 };
 
@@ -37,6 +39,6 @@ export const contactDeleteController = async (req, res) => {
     const { contactId } = req.params;
     const contact = await deleteContact({ contactId });
     if (!contact.isDeleted)
-        return res.status(401).json({ errors: ['Contact not exist'] });
+        return res.status(404).json({ errors: ['Contact not exist'] });
     return res.json({ message: 'contact was deleted' });
 };
